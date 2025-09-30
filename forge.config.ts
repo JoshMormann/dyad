@@ -54,18 +54,19 @@ const config: ForgeConfig = {
   packagerConfig: {
     protocols: [
       {
-        name: "Dyad",
+        name: "Helix",
         schemes: ["dyad"],
       },
     ],
     icon: "./assets/icon/logo",
 
-    osxSign: isEndToEndTestBuild
+    // Skip code signing for local builds (only sign if credentials are provided)
+    osxSign: isEndToEndTestBuild || !process.env.APPLE_TEAM_ID
       ? undefined
       : {
           identity: process.env.APPLE_TEAM_ID,
         },
-    osxNotarize: isEndToEndTestBuild
+    osxNotarize: isEndToEndTestBuild || !process.env.APPLE_ID
       ? undefined
       : {
           appleId: process.env.APPLE_ID!,

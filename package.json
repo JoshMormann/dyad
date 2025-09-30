@@ -1,12 +1,12 @@
 {
-  "name": "dyad",
-  "productName": "dyad",
+  "name": "dyad-helix",
+  "productName": "helix",
   "version": "0.22.0-beta.1",
-  "description": "Free, local, open-source AI app builder",
+  "description": "Helix - Halo's VCaaS platform (fork of Dyad)",
   "main": ".vite/build/main.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dyad-sh/dyad.git"
+    "url": "https://github.com/JoshMormann/dyad.git"
   },
   "engines": {
     "node": ">=20"

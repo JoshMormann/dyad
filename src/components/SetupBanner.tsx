@@ -28,8 +28,7 @@ import { NodeSystemInfo } from "@/ipc/ipc_types";
 import { usePostHog } from "posthog-js/react";
 import { useLanguageModelProviders } from "@/hooks/useLanguageModelProviders";
 import { useScrollAndNavigateTo } from "@/hooks/useScrollAndNavigateTo";
-// @ts-ignore
-import logo from "../../assets/logo.svg";
+import { HelixLogo } from "@/components/HelixLogo";
 
 type NodeInstallStep =
   | "install"
@@ -124,7 +123,7 @@ export function SetupBanner() {
   if (itemsNeedAction.length === 0) {
     return (
       <h1 className="text-center text-5xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 dark:from-gray-100 dark:to-gray-400 tracking-tight">
-        Build your dream app
+        Ready for your demo
       </h1>
     );
   }
@@ -147,7 +146,7 @@ export function SetupBanner() {
 
   return (
     <>
-      <p className="text-xl text-zinc-700 dark:text-zinc-300 p-4">Setup Dyad</p>
+      <p className="text-xl text-zinc-700 dark:text-zinc-300 p-4">Setup Helix</p>
       <div className={bannerClasses}>
         <Accordion
           type="multiple"
@@ -286,7 +285,9 @@ export function SetupBanner() {
                 onClick={handleDyadProSetupClick}
                 tabIndex={isNodeSetupComplete ? 0 : -1}
                 leadingIcon={
-                  <img src={logo} alt="Dyad Logo" className="w-6 h-6 mr-0.5" />
+                  <div className="w-6 h-6 mr-0.5 flex items-center justify-center">
+                    <HelixLogo className="w-12 h-4" />
+                  </div>
                 }
                 title="Setup Dyad Pro"
                 subtitle={
@@ -389,7 +390,7 @@ function NodeInstallButton({
     case "finished-checking":
       return (
         <div className="mt-3 text-sm text-red-600 dark:text-red-400">
-          Node.js not detected. Closing and re-opening Dyad usually fixes this.
+          Node.js not detected. Closing and re-opening Helix usually fixes this.
         </div>
       );
     default:

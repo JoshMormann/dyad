@@ -4,6 +4,28 @@ import log from "electron-log";
 
 const logger = log.scope("system_prompt");
 
+// ============================================================================
+// 🎯 HALO VCaaS CUSTOMIZATION GUIDE
+// ============================================================================
+// This file contains the system prompts that control how the AI builds apps.
+// For VCaaS sessions, you can customize these prompts to tailor the AI's behavior
+// for specific clients, demos, or use cases.
+//
+// SAFE CUSTOMIZATION ZONES (recommended for VCaaS prep):
+// 1. DEFAULT_AI_RULES (line ~340) - Add client-specific tech stack preferences
+// 2. THINKING_PROMPT (below) - Adjust the AI's planning approach if needed
+// 3. BUILD_SYSTEM_PREFIX role description (line ~59) - Customize the AI's persona
+//
+// CAUTION ZONES (modify carefully):
+// - Example code blocks - these teach the AI proper formatting
+// - Tag syntax (<dyad-write>, etc.) - breaking these breaks code generation
+// - The constructSystemPrompt function - core system logic
+//
+// BEST PRACTICE:
+// Create client-specific versions by copying this file and modifying copies,
+// rather than editing this file directly before demos.
+// ============================================================================
+
 export const THINKING_PROMPT = `
 # Thinking Process
 
@@ -56,6 +78,14 @@ This structured thinking ensures you:
 4. Maintain a consistent approach to problem-solving
 `;
 
+// ============================================================================
+// 🔧 VCaaS CUSTOMIZATION ZONE: AI Persona & Role
+// ============================================================================
+// This section defines the AI's identity and behavior. For VCaaS sessions:
+// - You can change "Dyad" to "Helix" or keep it as Dyad
+// - Add client-specific context (e.g., "You specialize in fintech apps")
+// - Adjust tone/personality to match client expectations
+// ============================================================================
 export const BUILD_SYSTEM_PREFIX = `
 <role> You are Dyad, an AI editor that creates and modifies web applications. You assist users by chatting with them and making changes to their code in real-time. You understand that users can see a live preview of their application in an iframe on the right side of the screen while you make code changes.
 You make efficient and effective changes to codebases while following best practices for maintainability and readability. You take pride in keeping things simple and elegant. You are friendly and helpful, always aiming to provide clear explanations. </role>
@@ -337,6 +367,39 @@ export const BUILD_SYSTEM_PROMPT = `${BUILD_SYSTEM_PREFIX}
 
 ${BUILD_SYSTEM_POSTFIX}`;
 
+// ============================================================================
+// 🎯 PRIMARY VCaaS CUSTOMIZATION ZONE: Tech Stack & Project Rules
+// ============================================================================
+// This is the MAIN area to customize for client demos. Add or modify:
+//
+// CLIENT-SPECIFIC ADDITIONS:
+// - Preferred component libraries or design systems
+// - API endpoints or backend services to use
+// - Authentication patterns (e.g., "Use Clerk for auth")
+// - Database preferences (e.g., "Use Supabase for data storage")
+// - Styling guidelines (e.g., "Use company brand colors: primary #EA3745")
+// - Architectural patterns (e.g., "Use Redux for state management")
+// - Domain knowledge (e.g., "This is a healthcare app, ensure HIPAA compliance")
+//
+// EXAMPLE CLIENT-SPECIFIC RULES:
+// - "Always use Stripe for payment processing"
+// - "Integrate with the company's REST API at https://api.client.com"
+// - "Follow Material Design principles for all UI components"
+// - "Use Chart.js for all data visualizations"
+// - "Implement dark mode support for all pages"
+//
+// SAFE TO ADD:
+// - New libraries or frameworks
+// - Design system preferences
+// - Code organization rules
+// - Naming conventions
+// - Security requirements
+//
+// ⚠️ DO NOT CHANGE:
+// - The basic React/TypeScript/Tailwind setup
+// - File structure (src/pages, src/components)
+// - shadcn/ui references (unless client specifically doesn't want it)
+// ============================================================================
 const DEFAULT_AI_RULES = `# Tech Stack
 - You are building a React application.
 - Use TypeScript.
@@ -354,6 +417,17 @@ Available packages and libraries:
 - You ALREADY have ALL the shadcn/ui components and their dependencies installed. So you don't need to install them again.
 - You have ALL the necessary Radix UI components installed.
 - Use prebuilt components from the shadcn/ui library after importing them. Note that these files shouldn't be edited, so make new components if you need to change them.
+
+# ============================================================================
+# 📝 ADD CLIENT-SPECIFIC RULES BELOW THIS LINE
+# ============================================================================
+# Example:
+# - Use the company API: https://api.example.com/v1
+# - Primary brand color: #EA3745 (Helix red)
+# - All forms must include error handling and loading states
+# - Implement analytics tracking with PostHog
+# ============================================================================
+
 `;
 
 const ASK_MODE_SYSTEM_PROMPT = `
